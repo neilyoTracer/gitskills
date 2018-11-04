@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from '../app.component';
 import { HomePageComponent } from '../home-page/home-page.component';
+import { GridDemoComponent } from '../grid-demo/grid-demo.component';
 
 const routes: Routes = [
     {
@@ -14,7 +15,11 @@ const routes: Routes = [
     {
         path: 'home-page',
         component: HomePageComponent
-    }
+	},
+	{
+		path:'grid-demo',
+		component:GridDemoComponent
+	}
 ];
 
 @NgModule({

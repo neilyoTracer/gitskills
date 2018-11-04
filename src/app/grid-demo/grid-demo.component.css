@@ -1,0 +1,31 @@
+.grid-demo *{ 
+	box-sizing: border-box;
+}
+.grid {
+    position: relative;
+}
+
+.item {
+    position: absolute;
+	margin:5px;
+	z-index: 1;
+	background:#fff;
+	color:#fff;
+}
+
+.item.muuri-item-hidden {
+    z-index: 0;
+}
+.item.muuri-item-releasing {
+    z-index: 2;
+}
+.item.muuri-item-dragging {
+    z-index: 3;
+}
+
+.item-content { 
+	position: relative;
+	width:100%;
+	height:100%;
+	background: lightseagreen;
+}
