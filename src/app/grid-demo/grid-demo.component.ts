@@ -1,11 +1,17 @@
-import { Component, OnInit, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import {
+    Component,
+    OnInit,
+    NgZone,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef
+} from "@angular/core";
 import * as Muuri from "muuri";
 
 @Component({
     selector: "app-grid-demo",
     templateUrl: "./grid-demo.component.html",
-	styleUrls: ["./grid-demo.component.css"],
-	changeDetection:ChangeDetectionStrategy.OnPush
+    styleUrls: ["./grid-demo.component.css"],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GridDemoComponent implements OnInit {
     data: Array<any> = [
@@ -16,24 +22,30 @@ export class GridDemoComponent implements OnInit {
         { id: "5", title: "Five", width: 1, height: 1 },
         { id: "6", title: "Six", width: 1, height: 0.5 },
         { id: "7", title: "Seven", width: 0.5, height: 0.5 },
-        { id: "8", title: "Eight", width: 1, height:0.5 },
+        { id: "8", title: "Eight", width: 1, height: 0.5 },
         { id: "9", title: "Nine", width: 0.5, height: 0.5 },
-        { id: "9", title: "Nine", width: 1, height: 0.5 },
-    ];
+        { id: "10", title: "ten", width: 1, height: 0.5 }
+	];
+	retId:string[] = [];
 
-    constructor(
-		private zone: NgZone,
-		private ref:ChangeDetectorRef
-	) {}
+    constructor(private zone: NgZone, private ref: ChangeDetectorRef) {}
 
     ngOnInit() {
-		setTimeout(() => this.gridInit());
-		setTimeout(() => this.ref.markForCheck(),1000);
+        setTimeout(() => this.gridInit());
+        // setTimeout(() => this.ref.markForCheck(),1000);
     }
 
     gridInit() {
-		const grid = new Muuri(".grid", {
-			item:'.item',
+        const grid = new Muuri(".grid", {
+			items:'.item',
+            layout: {
+                fillGaps: true,
+                horizontal: false,
+                alignRight: false,
+                alignBottom: false,
+                rounding: false
+            },
+            item: ".item",
             layoutDuration: 400,
             layoutEasing: "ease",
             dragEnabled: true,
@@ -43,7 +55,21 @@ export class GridDemoComponent implements OnInit {
             dragReleseEasing: "ease"
         });
         grid.refreshItems().layout();
+        grid.on("layoutEnd", (items) => {
+			console.log(items);
+			this.ref.markForCheck();
+			this.ref.detectChanges();
+			console.log(this.data);
+			this.retId = [];
+			items.forEach(el => { 
+				console.log(el.getElement().id);
+				let id = el.getElement().id;
+				this.retId.push(id);
+				console.log(this.retId);
+			})
+        });
 	}
+	
 
     calcSize(w, h) {
         console.log(w, h);

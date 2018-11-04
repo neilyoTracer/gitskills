@@ -1,7 +1,8 @@
 <div class="grid-demo">
 
 	<div class="grid">
-		<div class="item" *ngFor="let item of data"
+		<div class="item" *ngFor="let item of data" 
+			[id]="item.id"
 			[ngStyle]="calcSize(item.width,item.height)">
 			<div class="item-content">
 				{{item.title}}
@@ -9,4 +10,6 @@
 		</div>
 		
 	</div>
+
 </div>
+<div>{{data | json}}</div>
