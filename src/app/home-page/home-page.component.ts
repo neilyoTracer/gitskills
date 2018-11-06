@@ -14,14 +14,16 @@ export class HomePageComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {
-        this.itemContainers = new Array<any>().slice.call(
-            document.querySelectorAll(".board-column-content")
-        );
-        this.columnGrids = new Array<any>();
+        // this.itemContainers = new Array<any>().slice.call(
+        //     document.querySelectorAll(".board-column-content")
+        // );
+        this.itemContainers = Array.from(document.querySelectorAll(".board-column-content"));
+        this.columnGrids = [];
 
         // Define the column grids so we can drag those
         // items around.
         this.itemContainers.forEach(container => {
+            console.log(container);
             // Instantiate column grid.
             // NOTE: if you get a constructor Typescript error, you may need to use Muuri.default
             const grid = new Muuri(container, {
